@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="globoApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Globo App</title>
+	<link rel="icon" type="image/png" href="ico/favicon.ico"/>
+    <link href="css/App.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+	<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/App.js"></script>
+	<script src="node_modules/angular-github-api-factory/dist/angular-github-api-factory.min.js"></script>
+</head>
+<body>
+	<div id="container" class="central" ng-controller="CtrlGlobo" ng-init="carregar()">
+	  <div class="col-sm-6 dvProjeto">
+		<h3>{{lista}}</h3>
+		<ul class="list-unstyled">
+			<li ng-repeat="proj in projetos | orderBy:'-stargazers_count'" ng-attr-id="{{$index}}" ng-click="mostrarDetalhes(proj.name,$index)">
+				<a href="#" ng-attr-id="{{'a' + $index}}">{{proj.name}}</a>
+			</li>
+		</ul>
+		
+      </div>
+	  
+	  <div class="col-sm-6 dvDetalhe">
+		<div class="cabecalho">
+			<h3>Detalhes Projetos</h3>
+			<p>Nome: {{proj_nome}}</p>
+			<p>Nº Stars: {{proj_stars}}</p>
+			<p>Nº Forks: {{proj_forks}}</p>
+		
+		</div>
+		<div class="dvCommit">
+			<h4>{{titulo}}</h4>
+			<ul class="list-unstyled commit">
+				<li ng-repeat="cmt in commits">
+					<img class="avatar" ng-src={{cmt.committer.avatar_url}} />
+					<p>Nome: {{cmt.commit.author.name}}</p>	
+					<p>Data: {{cmt.commit.committer.date}}</p>	
+					<p class="msg">Mensagem: {{cmt.commit.message}}</p>	
+				</li>
+			</ul>
+			<button type="button" class="btn btn-primary btn-circle btn-xl btn-det" ng-style="{'display': status}" ng-click="mostrarMais(proj_nome)">Mais</button>
+		</div>
+		
+      </div>
+	</div>
+
+</body>
+</html>
